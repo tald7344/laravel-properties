@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Roles',
+    'description' => 'Manage system roles and assign permissions.',
+    'add_role' => 'Add role',
+    'role' => 'Role',
+    'programmatic_name' => 'Programmatic name',
+    'permissions' => 'Permissions',
+    'action' => 'Action',
+    'none' => 'No permissions',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'delete_confirm' => 'Do you want to delete this role?',
+    'edit_role' => 'Edit role',
+    'create_role' => 'Add role',
+    'name_placeholder' => 'Programmatic name, e.g. editor',
+    'label_placeholder' => 'Display name',
+    'save' => 'Save',
+    'defined_roles' => 'Defined roles and permissions',
+    'role_system' => 'The system supports three extensible roles: admin, owner, renter.',
+    'no_custom_permissions' => 'There are no custom permissions yet.',
+    'defined_permissions' => 'Defined permissions',
+    'name_admin' => 'Administrator',
+    'name_owner' => 'Owner',
+    'name_renter' => 'Tenant',
+];

@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'owner_account' => 'Owner account',
+    'tenant_account' => 'Tenant account',
+    'profile' => 'Profile',
+    'owner_intro' => 'Update your contact information, location, profile photo, and verification documents.',
+    'tenant_intro' => 'Update your information, profile photo, and location to make communication easier.',
+    'full_name' => 'Full name',
+    'email' => 'Email address',
+    'phone' => 'Phone number',
+    'location' => 'City or location',
+    'profile_photo' => 'Profile photo',
+    'photo_formats' => 'JPG, PNG, or WebP, up to 5 MB.',
+    'current_profile_photo' => 'Current profile photo',
+    'current_photo' => 'Current photo',
+    'owner_documents' => 'Owner documents',
+    'document_upload_help' => 'Upload up to 10 PDF files or images. Maximum size is 10 MB per file.',
+    'saved_documents' => 'Saved documents',
+    'delete' => 'Delete',
+    'saved_owner_documents' => 'Owner documents',
+    'return_owner_dashboard' => 'Return to owner dashboard',
+    'return_tenant_dashboard' => 'Return to tenant dashboard',
+    'save_changes' => 'Save changes',
+];

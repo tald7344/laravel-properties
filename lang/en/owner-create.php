@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Add a property',
+    'review_notice' => 'Your listing will remain under review until approved by the Dark team.',
+    'listing_title' => 'Listing title',
+    'neighborhood' => 'Neighborhood',
+    'full_address' => 'Full address (optional)',
+    'rent' => 'Rent',
+    'sale' => 'Sale',
+    'residential' => 'Residential',
+    'commercial' => 'Commercial',
+    'price' => 'Price',
+    'bedrooms' => 'Bedrooms',
+    'floor' => 'Floor number',
+    'area' => 'Area in square meters',
+    'furnished' => 'Furnished',
+    'reward' => 'Show optional reward option',
+    'description' => 'Describe the property in detail',
+    'damascus' => 'Damascus',
+    'jaramana' => 'Jaramana',
+    'sahnaya' => 'Sahnaya',
+    'usd' => 'USD',
+    'syp' => 'SYP',
+    'submit' => 'Submit for review',
+];

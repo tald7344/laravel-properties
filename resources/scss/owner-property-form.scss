@@ -1,0 +1,295 @@
+body[data-page='owner-property-form'] {
+    background: #f5f8f6;
+
+    .owner-property-page {
+        min-height: calc(100vh - 76px);
+        padding: 48px 0 64px;
+        background:
+            radial-gradient(ellipse at 12% 10%, rgba(223, 245, 233, .75), transparent 34%),
+            #f5f8f6;
+    }
+
+    .owner-property-wrap {
+        max-width: 960px;
+    }
+
+    .owner-property-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+
+        h1 {
+            margin: 0 0 6px;
+            color: #14231f;
+            font-size: clamp(26px, 4vw, 34px);
+            line-height: 1.35;
+        }
+
+        p {
+            margin: 0;
+            color: #697873;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+    }
+
+    .owner-property-eyebrow {
+        display: inline-block;
+        margin-bottom: 6px;
+        color: #176b52;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .owner-property-back {
+        flex: 0 0 auto;
+        padding: 10px 14px;
+        border: 1px solid #dbe7e1;
+        border-radius: 10px;
+        background: #fff;
+        color: #176b52;
+        font-size: 12px;
+        font-weight: 700;
+        transition: border-color .2s, background-color .2s;
+
+        &:hover {
+            border-color: #a8caba;
+            background: #fafffc;
+        }
+    }
+
+    .owner-property-card {
+        overflow: hidden;
+        border: 1px solid #e1ebe5;
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 16px 42px rgba(23, 78, 56, .07);
+    }
+
+    .owner-property-form {
+        padding: 8px 34px 28px;
+    }
+
+    .owner-property-section {
+        padding: 28px 0;
+        border-bottom: 1px solid #edf2ef;
+    }
+
+    .owner-property-section-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        margin-bottom: 20px;
+
+        h2 {
+            margin: 0 0 3px;
+            color: #20372f;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        p {
+            margin: 0;
+            color: #81908a;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+    }
+
+    .owner-property-step {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        place-items: center;
+        border: 1px solid #d5eade;
+        border-radius: 10px;
+        background: #f1faf5;
+        color: #176b52;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .owner-property-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 17px 18px;
+    }
+
+    .owner-property-field {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 7px;
+        color: #344b42;
+        font-size: 12px;
+        font-weight: 700;
+
+        b {
+            color: #bd5d48;
+        }
+
+        small {
+            margin-inline-start: 4px;
+            color: #89958f;
+            font-size: 11px;
+            font-weight: 400;
+        }
+    }
+
+    .owner-property-field--full {
+        grid-column: 1 / -1;
+    }
+
+    .owner-property-control {
+        width: 100%;
+        min-height: 46px;
+        padding: 10px 12px;
+        border: 1px solid #dce7e1;
+        border-radius: 9px;
+        outline: none;
+        background-color: #fff;
+        color: #23382f;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 400;
+        transition: border-color .18s ease, box-shadow .18s ease;
+
+        &::placeholder {
+            color: #a1aca7;
+        }
+
+        &:focus {
+            border-color: #6ca88b;
+            box-shadow: 0 0 0 3px rgba(23, 107, 82, .1);
+        }
+    }
+
+    .owner-property-description {
+        min-height: 132px;
+        resize: vertical;
+        line-height: 1.8;
+    }
+
+    .owner-property-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        padding-top: 20px;
+    }
+
+    .owner-property-check {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: #43574f;
+        cursor: pointer;
+        font-size: 12px;
+
+        input {
+            width: 17px;
+            height: 17px;
+            margin: 0;
+            accent-color: #176b52;
+        }
+    }
+
+    .owner-property-file {
+        min-height: 50px;
+        padding: 7px;
+        color: #697873;
+
+        &::file-selector-button {
+            margin-inline-end: 12px;
+            padding: 8px 12px;
+            border: 0;
+            border-radius: 6px;
+            background: #eaf5ee;
+            color: #176b52;
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+        }
+    }
+
+    .owner-property-media-preview {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+
+        img {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #e1ebe5;
+            border-radius: 9px;
+            object-fit: cover;
+        }
+    }
+
+    .owner-property-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-top: 22px;
+
+        p {
+            margin: 0;
+            color: #84918b;
+            font-size: 11px;
+
+            b {
+                color: #bd5d48;
+            }
+        }
+
+        .btn {
+            min-height: 46px;
+            padding-inline: 22px;
+            border-radius: 10px;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    body[data-page='owner-property-form'] {
+        .owner-property-page {
+            padding: 30px 0 42px;
+        }
+
+        .owner-property-heading {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .owner-property-form {
+            padding: 4px 18px 20px;
+        }
+
+        .owner-property-section {
+            padding: 23px 0;
+        }
+
+        .owner-property-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .owner-property-field--full {
+            grid-column: auto;
+        }
+
+        .owner-property-actions {
+            align-items: stretch;
+            flex-direction: column-reverse;
+
+            .btn {
+                width: 100%;
+            }
+        }
+    }
+}

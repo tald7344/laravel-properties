@@ -1,3 +1,22 @@
 <?php
-use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
-return new class extends Migration { public function up():void{Schema::table('properties',function(Blueprint $t){$t->unsignedTinyInteger('bathrooms')->nullable()->after('bedrooms');$t->json('amenities')->nullable()->after('media');$t->string('video_url',500)->nullable()->after('amenities');});} public function down():void{Schema::table('properties',function(Blueprint $t){$t->dropColumn(['bathrooms','amenities','video_url']);});} };
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::table('properties', function (Blueprint $t) {
+            $t->unsignedTinyInteger('bathrooms')->nullable()->after('bedrooms');
+            $t->json('amenities')->nullable()->after('media');
+            $t->string('video_url', 500)->nullable()->after('amenities');
+        });
+    }
+    public function down(): void
+    {
+        Schema::table('properties', function (Blueprint $t) {
+            $t->dropColumn(['bathrooms', 'amenities', 'video_url']);
+        });
+    }
+};

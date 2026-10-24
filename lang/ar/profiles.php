@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'owner_account' => 'حساب المالك',
+    'tenant_account' => 'حساب المستأجر',
+    'profile' => 'الملف الشخصي',
+    'owner_intro' => 'حدّث بيانات التواصل والموقع وصورة الحساب ومستندات التحقق.',
+    'tenant_intro' => 'حدّث بياناتك وصورة حسابك وموقعك لتسهيل التواصل.',
+    'full_name' => 'الاسم الكامل',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'رقم الهاتف',
+    'location' => 'المدينة أو الموقع',
+    'profile_photo' => 'الصورة الشخصية',
+    'photo_formats' => 'JPG أو PNG أو WebP، بحد أقصى 5 ميغابايت.',
+    'current_profile_photo' => 'الصورة الشخصية الحالية',
+    'current_photo' => 'الصورة الحالية',
+    'owner_documents' => 'مستندات المالك',
+    'document_upload_help' => 'ارفع حتى 10 مستندات PDF أو صور. الحد الأقصى لكل ملف 10 ميغابايت.',
+    'saved_documents' => 'المستندات المحفوظة',
+    'delete' => 'حذف',
+    'saved_owner_documents' => 'مستندات المالك',
+    'return_owner_dashboard' => 'العودة إلى لوحة المالك',
+    'return_tenant_dashboard' => 'العودة إلى لوحة المستأجر',
+    'save_changes' => 'حفظ التغييرات',
+];

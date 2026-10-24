@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'الأدوار',
+    'description' => 'إدارة أدوار النظام وربطها بالصلاحيات.',
+    'add_role' => 'إضافة دور',
+    'role' => 'الدور',
+    'programmatic_name' => 'الاسم البرمجي',
+    'permissions' => 'الصلاحيات',
+    'action' => 'إجراء',
+    'none' => 'بدون صلاحيات',
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
+    'delete_confirm' => 'هل تريد حذف هذا الدور؟',
+    'edit_role' => 'تعديل دور',
+    'create_role' => 'إضافة دور',
+    'name_placeholder' => 'الاسم البرمجي مثل editor',
+    'label_placeholder' => 'الاسم الظاهر',
+    'save' => 'حفظ',
+    'defined_roles' => 'الأدوار والصلاحيات',
+    'role_system' => 'النظام يدعم ثلاثة أدوار قابلة للتوسع: admin، owner، renter.',
+    'no_custom_permissions' => 'لا توجد صلاحيات مخصصة بعد.',
+    'defined_permissions' => 'الصلاحيات المعرفة',
+    'name_admin' => 'مدير النظام',
+    'name_owner' => 'مالك',
+    'name_renter' => 'مستأجر',
+];

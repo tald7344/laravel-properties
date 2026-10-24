@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'اللغات',
+    'description' => 'إدارة اللغات النشطة واللغة الافتراضية للموقع.',
+    'add' => 'إضافة لغة',
+    'language' => 'اللغة',
+    'code' => 'الكود',
+    'direction' => 'الاتجاه',
+    'status' => 'الحالة',
+    'action' => 'إجراء',
+    'default' => 'افتراضية',
+    'active' => 'نشطة',
+    'inactive' => 'متوقفة',
+    'edit' => 'تعديل',
+    'set_default' => 'جعلها افتراضية',
+    'delete' => 'حذف',
+    'delete_confirm' => 'حذف اللغة؟',
+    'edit_language' => 'تعديل لغة',
+    'add_language' => 'إضافة لغة',
+    'name_placeholder' => 'Arabic',
+    'native_name_placeholder' => 'العربية',
+    'rtl' => 'RTL',
+    'ltr' => 'LTR',
+    'active_language' => 'لغة نشطة',
+    'save' => 'حفظ',
+];

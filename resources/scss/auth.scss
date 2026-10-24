@@ -1,0 +1,47 @@
+.auth-page { position: relative; overflow: hidden; padding: 48px 0 60px; background: radial-gradient(ellipse at 10% 15%, rgba(223, 245, 233, .8), transparent 32%), #f7faf8; }
+.auth-page::before, .auth-page::after { position: absolute; z-index: 0; width: 240px; height: 240px; border: 1px solid rgba(23, 107, 82, .08); border-radius: 50%; content: ''; pointer-events: none; }
+.auth-page::before { top: 5%; left: -130px; box-shadow: 0 0 0 28px rgba(23, 107, 82, .025), 0 0 0 58px rgba(23, 107, 82, .02); }
+.auth-page::after { right: -140px; bottom: 4%; }
+.auth-wrap { position: relative; z-index: 1; display: grid; width: min(100% - 40px, 760px); min-height: min(650px, calc(100svh - 180px)); align-content: center; margin: auto; gap: 22px; }
+.auth-intro { padding: 0 4px 8px; text-align: center; }
+.auth-intro h1 { margin: 12px 0 7px; font-size: clamp(29px, 4vw, 40px); }
+.auth-intro p { margin: 0; }
+.auth-jump { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+.auth-jump a { padding: 9px 15px; border: 1px solid #dce9e2; border-radius: 99px; background: rgba(255,255,255,.72); color: var(--green); font-size: 12px; font-weight: 700; transition: background .2s, transform .2s; }
+.auth-jump a:hover { transform: translateY(-2px); background: #fff; }
+.auth-jump span { margin-right: 8px; }
+.auth-views { perspective: 1200px; }
+.auth-panel { padding: clamp(22px, 5vw, 38px); border: 1px solid #e1ebe5; border-radius: 22px; background: #fff; box-shadow: 0 16px 44px rgba(28, 72, 52, .06); animation: auth-enter .55s cubic-bezier(.2,.8,.2,1) both; transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+.auth-panel[hidden] { display: none; }
+@keyframes auth-enter { from { opacity: 0; transform: translateY(20px) rotateX(-3deg); } to { opacity: 1; transform: translateY(0) rotateX(0); } }
+.auth-panel:hover { transform: translateY(-3px); box-shadow: 0 22px 54px rgba(28, 72, 52, .09); }
+.auth-panel-heading { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+.auth-panel-heading .eyebrow { margin: 0 0 4px; letter-spacing: 0; }
+.auth-panel-heading h2 { margin: 0; font-size: 25px; }
+.auth-panel-heading .muted { margin: 5px 0 0; font-size: 13px; }
+.auth-icon { display: grid; flex: 0 0 48px; width: 48px; height: 48px; place-items: center; border-radius: 15px; background: var(--mint); color: var(--green); font-size: 24px; font-weight: 700; }
+.auth-form { display: grid; gap: 17px; }
+.auth-field { display: grid; gap: 7px; color: #445c52; font-size: 12px; font-weight: 700; }
+.auth-field .field { min-height: 49px; padding: 12px 14px; transition: border-color .2s, box-shadow .2s; }
+.auth-field .field:focus { border-color: #5c9c7f; outline: 0; box-shadow: 0 0 0 3px rgba(23,107,82,.1); }
+.auth-password-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.auth-submit { display: flex; min-height: 49px; justify-content: center; align-items: center; gap: 12px; margin-top: 3px; }
+.auth-submit span { transition: transform .2s; }
+.auth-submit:hover span { transform: translateX(-4px); }
+.auth-switch { margin: 20px 0 0; padding-top: 17px; border-top: 1px solid #edf2ef; color: var(--muted); text-align: center; font-size: 12px; }
+.auth-switch a { color: var(--green); font-weight: 700; }
+[data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.8,.2,1); }
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 600px) {
+    .auth-page { padding: 38px 0 50px; }
+    .auth-wrap { width: min(100% - 28px, 760px); min-height: calc(100svh - 200px); gap: 16px; }
+    .auth-panel { padding: 22px 18px; border-radius: 17px; }
+    .auth-panel-heading h2 { font-size: 22px; }
+    .auth-password-row { grid-template-columns: 1fr; }
+    .auth-jump { gap: 6px; }
+    .auth-jump a { padding: 8px 11px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    [data-reveal] { opacity: 1; transform: none; }
+}

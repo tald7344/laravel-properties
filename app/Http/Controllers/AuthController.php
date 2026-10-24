@@ -1,4 +1,69 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Models\User; use Illuminate\Http\Request; use Illuminate\Support\Facades\Hash;
-class AuthController extends Controller { public function form(){return view('auth.form');} public function register(Request $r){$d=$r->validate(['name'=>'required|string|max:100','phone'=>'required|string|min:8|max:30|unique:users,phone','password'=>'required|string|min:8|confirmed','role'=>'required|in:owner,tenant']);$u=User::create(['name'=>$d['name'],'email'=>$d['phone'].'@phone.local','phone'=>$d['phone'],'password'=>$d['password'],'role'=>$d['role']]);auth()->login($u);return redirect($d['role']==='owner'?route('owner.dashboard'):route('home'));} public function login(Request $r){$d=$r->validate(['phone'=>'required','password'=>'required']);$u=User::where('phone',$d['phone'])->first();if(!$u||!Hash::check($d['password'],$u->password))return back()->withErrors(['phone'=>__('بيانات الدخول غير صحيحة.')]);auth()->login($u,$r->boolean('remember'));return redirect($u->role==='owner'?route('owner.dashboard'):route('home'));} public function logout(){auth()->logout();return redirect()->route('home');} }
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class AuthController extends Controller
+{
+    public function form()
+    {
+        return view('auth.form');
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:100',
+            'phone' => 'required|string|min:8|max:30|unique:users,phone',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|in:owner,tenant',
+        ]);
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['phone'] . '@phone.local',
+            'phone' => $data['phone'],
+            'password' => $data['password'],
+            'role' => $data['role'],
+        ]);
+
+        auth()->login($user);
+
+        return redirect($data['role'] === 'owner'
+            ? route('owner.dashboard')
+            : route('renter.dashboard'));
+    }
+
+    public function login(Request $request)
+    {
+        $data = $request->validate([
+            'phone' => 'required',
+            'password' => 'required',
+        ]);
+        $user = User::where('phone', $data['phone'])->first();
+
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
+            return back()->withErrors(['phone' => __('بيانات الدخول غير صحيحة.')]);
+        }
+
+        auth()->login($user, $request->boolean('remember'));
+
+        if ($user->role === 'owner') {
+            return redirect()->route('owner.dashboard');
+        }
+
+        return in_array($user->role, ['tenant', 'renter'], true)
+            ? redirect()->route('renter.dashboard')
+            : redirect()->route('home');
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect()->route('home');
+    }
+}

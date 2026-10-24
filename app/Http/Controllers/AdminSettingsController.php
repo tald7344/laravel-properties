@@ -1,13 +1,16 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\Setting; use Illuminate\Http\Request;
+use App\Models\Language;
+use App\Models\Setting;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 class AdminSettingsController extends Controller {
     private function admin(){abort_unless(auth()->check()&&auth()->user()->role==='admin',403);}
-    public function index(){ $this->admin(); $settings=Setting::pluck('value','key'); return view('admin.settings',compact('settings')); }
+    public function index(){ $this->admin(); $settings=Setting::pluck('value','key'); $languages=Language::where('is_active',true)->orderByDesc('is_default')->orderBy('name')->get(); return view('admin.settings',compact('settings','languages')); }
     public function update(Request $r){
         $this->admin();
         $d=$r->validate([
-            'default_language'=>'required|string|max:10', 'maintenance_mode'=>'nullable|boolean',
+            'default_language'=>['required','string',Rule::exists('languages','code')->where('is_active',true)], 'maintenance_mode'=>'nullable|boolean',
             'website_name'=>'required|string|max:150', 'trial_days'=>'required|integer|min:0|max:3650',
             'seo_title'=>'nullable|string|max:255', 'seo_description'=>'nullable|string|max:500',
             'seo_keywords'=>'nullable|string|max:500', 'default_currency'=>'required|in:USD,SYP',

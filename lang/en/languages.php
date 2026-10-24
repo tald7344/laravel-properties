@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Languages',
+    'description' => 'Manage active languages and the site default language.',
+    'add' => 'Add language',
+    'language' => 'Language',
+    'code' => 'Code',
+    'direction' => 'Direction',
+    'status' => 'Status',
+    'action' => 'Action',
+    'default' => 'Default',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'edit' => 'Edit',
+    'set_default' => 'Set as default',
+    'delete' => 'Delete',
+    'delete_confirm' => 'Delete this language?',
+    'edit_language' => 'Edit language',
+    'add_language' => 'Add language',
+    'name_placeholder' => 'Arabic',
+    'native_name_placeholder' => 'العربية',
+    'rtl' => 'RTL',
+    'ltr' => 'LTR',
+    'active_language' => 'Active language',
+    'save' => 'Save',
+];

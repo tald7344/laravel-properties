@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'location',
+        'profile_image',
+        'profile_documents',
         'role',
         'phone_verified',
         'is_verified_owner',
@@ -50,6 +53,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'phone_verified' => 'boolean',
             'is_verified_owner' => 'boolean',
+            'profile_documents' => 'array',
         ];
     }
 
