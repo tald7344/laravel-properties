@@ -10,7 +10,7 @@ return [
     'default_currency' => 'Default currency',
     'maintenance_subscription' => 'Maintenance and subscription',
     'maintenance_mode' => 'Enable maintenance mode',
-    'trial_days' => 'Trial days per owner',
+    'premium_price_per_property' => 'Premium monthly price per property (USD)',
     'seo' => 'SEO',
     'seo_title' => 'SEO title',
     'seo_description' => 'SEO description',

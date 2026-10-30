@@ -28,13 +28,15 @@ Route::post('/auth/register', [AuthController::class, 'register'])->name('auth.r
 Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('owner')->name('owner.')->group(function () {
+Route::prefix('owner')->name('owner.')->middleware('owner.subscription')->group(function () {
     Route::get('/profile', [ProfileController::class, 'editOwner'])->name('profile.edit');
     Route::get('/profile/documents', [ProfileController::class, 'downloadOwnerDocument'])->name('profile.documents.download');
     Route::put('/profile', [ProfileController::class, 'updateOwner'])->name('profile.update');
 });
 
-Route::prefix('owner')->name('owner.')->group(function () {
+Route::get('/owner/subscription', [OwnerController::class, 'subscription'])->name('owner.subscription');
+Route::post('/owner/subscribe', [OwnerController::class, 'subscribe'])->name('owner.subscribe');
+Route::prefix('owner')->name('owner.')->middleware('owner.subscription')->group(function () {
     Route::get('/dashboard', [OwnerController::class, 'dashboard'])->name('dashboard');
     Route::get('/properties/create', [OwnerController::class, 'create'])->name('properties.create');
     Route::post('/properties', [OwnerController::class, 'store'])->name('properties.store');
@@ -42,7 +44,6 @@ Route::prefix('owner')->name('owner.')->group(function () {
     Route::put('/properties/{property}', [OwnerController::class, 'update'])->name('properties.update');
     Route::post('/properties/{property}/confirm', [OwnerController::class, 'confirm'])->name('properties.confirm');
     Route::post('/properties/{property}/toggle', [OwnerController::class, 'toggle'])->name('properties.toggle');
-    Route::post('/subscribe', [OwnerController::class, 'subscribe'])->name('subscribe');
     Route::post('/complaints', [OwnerController::class, 'storeComplaint'])->name('complaints.store');
 });
 

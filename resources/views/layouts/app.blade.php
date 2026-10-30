@@ -1,15 +1,12 @@
-@php($siteName = \App\Models\Setting::value('website_name', \App\Models\Setting::value('site_name', __('layout.site_name'))))
-@php($languages = \App\Models\Language::where('is_active', true)->orderByDesc('is_default')->orderBy('name')->get())
-@php($currentLanguage = $languages->firstWhere('code', app()->getLocale()))
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}" dir="{{ $currentLanguage?->direction ?? (app()->getLocale() === 'ar' ? 'rtl' : 'ltr') }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ $title ?? \App\Models\Setting::value('seo_title', $siteName) }}</title>
-    <meta name="description" content="{{ \App\Models\Setting::value('seo_description', __('layout.description')) }}">
-    <meta name="keywords" content="{{ \App\Models\Setting::value('seo_keywords', __('layout.keywords')) }}">
+    <title>{{ $title ?? $siteSeoTitle }}</title>
+    <meta name="description" content="{{ $siteDescription }}">
+    <meta name="keywords" content="{{ $siteSeoKeywords }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
@@ -23,12 +20,13 @@
     @if (request()->is('admin/*'))
         @vite(['resources/css/admin.css'])
     @endif
-    @if (request()->is('owner/dashboard'))
+    @if (request()->is('owner/dashboard') || request()->routeIs('owner.subscription'))
         @vite(['resources/scss/owner-dashboard.scss'])
     @endif
 </head>
 
-<body data-page="{{ request()->is('admin/*') ? 'admin' : (request()->routeIs('owner.dashboard') ? 'owner-dashboard' : (request()->routeIs('owner.profile.*') ? 'owner-profile' : (request()->routeIs('renter.dashboard') ? 'renter-dashboard' : (request()->routeIs('renter.profile.*') ? 'renter-profile' : (request()->routeIs('owner.properties.create', 'owner.properties.edit') ? 'owner-property-form' : 'site'))))) }}">
+<body
+    data-page="{{ request()->is('admin/*') ? 'admin' : (request()->routeIs('owner.dashboard') ? 'owner-dashboard' : (request()->routeIs('owner.profile.*') ? 'owner-profile' : (request()->routeIs('renter.dashboard') ? 'renter-dashboard' : (request()->routeIs('renter.profile.*') ? 'renter-profile' : (request()->routeIs('owner.properties.create', 'owner.properties.edit') ? 'owner-property-form' : 'site'))))) }}">
     <nav class="nav">
         <div class="wrap navin"><a class="logo" href="{{ route('home') }}">{{ __('layout.brand') }}</a>
             <div class="links">
@@ -40,7 +38,9 @@
                     </summary>
                     <div class="language-menu-options">
                         @forelse ($languages as $language)
-                            <a href="{{ route('language.switch', $language) }}" lang="{{ $language->code }}" dir="{{ $language->direction }}" @if ($language->code === app()->getLocale()) aria-current="true" @endif>
+                            <a href="{{ route('language.switch', $language) }}" lang="{{ $language->code }}"
+                                dir="{{ $language->direction }}"
+                                @if ($language->code === app()->getLocale()) aria-current="true" @endif>
                                 <span>{{ $language->native_name }}</span>
                                 <small>{{ strtoupper($language->code) }}</small>
                             </a>
@@ -54,15 +54,15 @@
                     @if (auth()->user()->role === 'owner')
                         <a href="{{ route('owner.profile.edit') }}">{{ __('layout.profile') }}</a>
                     @endif
-                    @elseif (in_array(auth()->user()->role, ['tenant', 'renter']))
-                        <a href="{{ route('renter.dashboard') }}">{{ __('layout.renter_dashboard') }}</a>
-                        <a href="{{ route('renter.profile.edit') }}">{{ __('layout.profile') }}</a>
+                @elseif (in_array(auth()->user()->role, ['tenant', 'renter']))
+                    <a href="{{ route('renter.dashboard') }}">{{ __('layout.renter_dashboard') }}</a>
+                    <a href="{{ route('renter.profile.edit') }}">{{ __('layout.profile') }}</a>
                     @endif @if (auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}">{{ __('layout.admin') }}</a>
                     @endif
                     <form method="post" action="{{ route('logout') }}" style="display:inline">
-                    @csrf<button class="btn outline">{{ __('layout.logout') }}</button></form>@else<a class="btn"
-                    href="{{ route('auth.form') }}">{{ __('layout.login_register') }}</a>@endauth
+                    @csrf<button class="btn outline">{{ __('layout.logout') }}</button></form>@else<a
+                    class="btn" href="{{ route('auth.form') }}">{{ __('layout.login_register') }}</a>@endauth
         </div>
     </div>
 </nav>

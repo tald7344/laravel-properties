@@ -6,6 +6,7 @@ return [
     'plan' => 'الخطة',
     'owner' => 'المالك',
     'amount' => 'المبلغ',
+    'property_limit' => 'سعة العقارات',
     'reference' => 'المرجع',
     'sham_cash_reference' => 'مرجع شام كاش',
     'status' => 'الحالة',

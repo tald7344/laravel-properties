@@ -1,13 +1,95 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Models\Permission; use App\Models\Property; use App\Models\Report; use App\Models\Role; use App\Models\Setting; use App\Models\Subscription; use App\Models\User; use App\Services\DashboardStatistics; use Illuminate\Http\Request;
-class AdminController extends Controller {
- public function index(DashboardStatistics $stats){$this->admin();$properties=Property::with('owner')->latest()->get();$reports=Report::with('property')->where('status','open')->latest()->get();$statistics=$stats->admin();$subscriptions=Subscription::with('user')->where('status','approved')->whereNotNull('ends_at')->latest('ends_at')->take(10)->get();return view('admin.dashboard',compact('properties','reports','statistics','subscriptions'));}
- public function section(string $section){$this->admin();$allowed=['properties','users','subscriptions','complaints','settings'];abort_unless(in_array($section,$allowed),404);$properties=$section==='properties'?Property::with('owner')->latest()->get():collect();$users=$section==='users'?User::latest()->get():collect();$subscriptions=$section==='subscriptions'?Subscription::with('user')->latest()->get():collect();$reports=$section==='complaints'?Report::with('property')->latest()->get():collect();$settings=$section==='settings'?Setting::orderBy('key')->get():collect();return view('admin.section',compact('section','properties','users','subscriptions','reports','settings'));}
- public function saveSettings(Request $r){$this->admin();foreach($r->input('settings',[]) as $key=>$value){Setting::where('key',$key)->update(['value'=>$value]);}return back()->with('success','تم حفظ إعدادات الموقع.');}
- public function roles(){ $this->admin(); $roles=Role::with('permissions')->get(); $permissions=Permission::orderBy('name')->get(); return view('admin.roles',compact('roles','permissions')); }
- public function approveSubscription(Subscription $subscription){$this->admin();$subscription->update(['status'=>'approved','starts_at'=>now(),'ends_at'=>now()->addMonth()]);return back()->with('success','تم اعتماد الاشتراك لشهر واحد.');}
- public function moderate(Request $r,Property $property){$this->admin();$d=$r->validate(['status'=>'required|in:published,suspended,expired']);$property->update(['status'=>$d['status'],'published_at'=>$d['status']==='published'?($property->published_at??now()):$property->published_at]);DashboardStatistics::forget($property->user_id);return back()->with('success','تم تحديث حالة الإعلان.');}
- public function resolveReport(Report $report){$this->admin();$report->update(['status'=>'resolved']);DashboardStatistics::forget();return back()->with('success','تم إغلاق البلاغ.');}
- private function admin(){abort_unless(auth()->check()&&auth()->user()->role==='admin',403);}
+
+use App\Models\Permission;
+use App\Models\Property;
+use App\Models\Report;
+use App\Models\Role;
+use App\Models\Setting;
+use App\Models\Subscription;
+use App\Models\User;
+use App\Services\DashboardStatistics;
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
+{
+    public function index(DashboardStatistics $stats)
+    {
+        $this->admin();
+        $properties = Property::with('owner')->latest()->get();
+        $reports = Report::with('property')->where('status', 'open')->latest()->get();
+        $statistics = $stats->admin();
+        $subscriptions = Subscription::whereHas('user', fn ($query) => $query->where('role', 'owner'))
+            ->with('user')
+            ->where('status', 'approved')
+            ->whereNotNull('ends_at')
+            ->latest('ends_at')
+            ->take(10)
+            ->get();
+        return view('admin.dashboard', compact('properties', 'reports', 'statistics', 'subscriptions'));
+    }
+    public function section(string $section)
+    {
+        $this->admin();
+        $allowed = ['properties', 'users', 'subscriptions', 'complaints', 'settings'];
+        abort_unless(in_array($section, $allowed), 404);
+        $properties = $section === 'properties' ? Property::with('owner')->latest()->get() : collect();
+        $users = $section === 'users' ? User::latest()->get() : collect();
+        $subscriptions = $section === 'subscriptions'
+            ? Subscription::whereHas('user', fn ($query) => $query->where('role', 'owner'))->with('user')->latest()->get()
+            : collect();
+        $reports = $section === 'complaints' ? Report::with('property')->latest()->get() : collect();
+        $settings = $section === 'settings' ? Setting::orderBy('key')->get() : collect();
+        return view('admin.section', compact('section', 'properties', 'users', 'subscriptions', 'reports', 'settings'));
+    }
+    public function saveSettings(Request $r)
+    {
+        $this->admin();
+        foreach ($r->input('settings', []) as $key => $value) {
+            Setting::where('key', $key)->update(['value' => $value]);
+        }
+        return back()->with('success', 'تم حفظ إعدادات الموقع.');
+    }
+    public function roles()
+    {
+        $this->admin();
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::orderBy('name')->get();
+        return view('admin.roles', compact('roles', 'permissions'));
+    }
+    public function approveSubscription(Subscription $subscription)
+    {
+        $this->admin();
+        abort_unless($subscription->user->role === 'owner', 404);
+        $startsAt = $subscription->user->activeSubscription()?->ends_at ?? now();
+        $propertyLimit = $subscription->property_limit ?? max(1, $subscription->user->properties()->count());
+        $subscription->update([
+            'plan' => $subscription->plan === 'basic' ? 'basic' : 'premium',
+            'property_limit' => $propertyLimit,
+            'status' => 'approved',
+            'starts_at' => $startsAt,
+            'ends_at' => $startsAt->copy()->addMonth(),
+        ]);
+        return back()->with('success', 'تم اعتماد الاشتراك لشهر واحد.');
+    }
+    public function moderate(Request $r, Property $property)
+    {
+        $this->admin();
+        $d = $r->validate(['status' => 'required|in:published,suspended,expired']);
+        $property->update(['status' => $d['status'], 'published_at' => $d['status'] === 'published' ? ($property->published_at ?? now()) : $property->published_at]);
+        DashboardStatistics::forget($property->user_id);
+        return back()->with('success', 'تم تحديث حالة الإعلان.');
+    }
+    public function resolveReport(Report $report)
+    {
+        $this->admin();
+        $report->update(['status' => 'resolved']);
+        DashboardStatistics::forget();
+        return back()->with('success', 'تم إغلاق البلاغ.');
+    }
+    private function admin()
+    {
+        abort_unless(auth()->check() && auth()->user()->role === 'admin', 403);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\OwnerSubscriptionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,7 @@ class AuthController extends Controller
         return view('auth.form');
     }
 
-    public function register(Request $request)
+    public function register(Request $request, OwnerSubscriptionService $subscriptions)
     {
         $data = $request->validate([
             'name' => 'required|string|max:100',
@@ -29,6 +30,10 @@ class AuthController extends Controller
             'password' => $data['password'],
             'role' => $data['role'],
         ]);
+
+        if ($user->role === 'owner') {
+            $subscriptions->ensureBasicPlan($user);
+        }
 
         auth()->login($user);
 

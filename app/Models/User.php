@@ -60,5 +60,16 @@ class User extends Authenticatable
     public function properties() { return $this->hasMany(Property::class); }
     public function roles() { return $this->belongsToMany(Role::class); }
     public function subscriptions() { return $this->hasMany(Subscription::class); }
+    public function activeSubscription()
+    {
+        return $this->subscriptions()
+            ->where('status', 'approved')
+            ->where(function ($query) {
+                $query->whereNull('starts_at')->orWhere('starts_at', '<=', now());
+            })
+            ->where('ends_at', '>', now())
+            ->latest('ends_at')
+            ->first();
+    }
     public function hasRole(string $role): bool { return $this->role === $role || $this->roles()->where('name',$role)->exists(); }
 }

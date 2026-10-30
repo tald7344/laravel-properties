@@ -22,6 +22,7 @@ return [
     'optional' => '(optional)',
     'message_placeholder' => 'Write a message to the owner',
     'request_contact' => 'Request contact',
+    'owner_unavailable' => 'The owner is currently unable to receive messages. Please check back later.',
     'report_problem' => 'Is there a problem with this listing?',
     'report_type' => 'Report type',
     'old_listing' => 'Outdated listing',

@@ -6,6 +6,7 @@ return [
     'plan' => 'Plan',
     'owner' => 'Owner',
     'amount' => 'Amount',
+    'property_limit' => 'Property capacity',
     'reference' => 'Reference',
     'sham_cash_reference' => 'Sham Cash reference',
     'status' => 'Status',

@@ -194,11 +194,7 @@
                     </div>
                 </div>
                 <p>{{ __('owner-dashboard.subscription_info') }}</p>
-                <form class="owner-dashboard__subscription-form" method="post" action="{{ route('owner.subscribe') }}">
-                    @csrf
-                    <input class="field" name="reference" placeholder="{{ __('owner-dashboard.sham_cash_number') }}" aria-label="{{ __('owner-dashboard.sham_cash_number') }}" required>
-                    <button class="btn" type="submit">{{ __('owner-dashboard.submit_review') }}</button>
-                </form>
+                <a class="btn" href="{{ route('owner.subscription') }}">{{ __('owner-dashboard.manage_subscription') }}</a>
             </section>
         </div>
     </main>

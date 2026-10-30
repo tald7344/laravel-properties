@@ -22,6 +22,7 @@ return [
     'optional' => '(اختياري)',
     'message_placeholder' => 'اكتب رسالة للمالك',
     'request_contact' => 'اطلب التواصل',
+    'owner_unavailable' => 'لا يمكن التواصل مع المالك حاليًا. يرجى المحاولة لاحقًا.',
     'report_problem' => 'هل هناك مشكلة في الإعلان؟',
     'report_type' => 'نوع البلاغ',
     'old_listing' => 'الإعلان قديم',

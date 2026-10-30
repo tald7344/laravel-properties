@@ -48,15 +48,19 @@
                             <span>{{ __('property-details.price') }}</span>
                             <h2>{{ number_format($property->price) }} <small>{{ $property->currency }}</small></h2>
                         </div>
-                        <h3 id="contact-heading">{{ __('property-details.contact_owner') }}</h3>
-                        <form method="post" action="{{ route('properties.contact', $property) }}" class="property-contact-form">
-                            @csrf
-                            <label for="contact-phone">{{ __('property-details.your_phone') }}</label>
-                            <input id="contact-phone" class="field" name="phone" type="tel" autocomplete="tel" placeholder="{{ __('property-details.phone_placeholder') }}" required>
-                            <label for="contact-message">{{ __('property-details.your_message') }} <span>{{ __('property-details.optional') }}</span></label>
-                            <textarea id="contact-message" name="message" rows="4" placeholder="{{ __('property-details.message_placeholder') }}"></textarea>
-                            <button class="btn" type="submit">{{ __('property-details.request_contact') }}</button>
-                        </form>
+                        @if ($contactEnabled)
+                            <h3 id="contact-heading">{{ __('property-details.contact_owner') }}</h3>
+                            <form method="post" action="{{ route('properties.contact', $property) }}" class="property-contact-form">
+                                @csrf
+                                <label for="contact-phone">{{ __('property-details.your_phone') }}</label>
+                                <input id="contact-phone" class="field" name="phone" type="tel" autocomplete="tel" placeholder="{{ __('property-details.phone_placeholder') }}" required>
+                                <label for="contact-message">{{ __('property-details.your_message') }} <span>{{ __('property-details.optional') }}</span></label>
+                                <textarea id="contact-message" name="message" rows="4" placeholder="{{ __('property-details.message_placeholder') }}"></textarea>
+                                <button class="btn" type="submit">{{ __('property-details.request_contact') }}</button>
+                            </form>
+                        @else
+                            <p>{{ __('property-details.owner_unavailable') }}</p>
+                        @endif
                     </section>
 
                     <details class="property-report panel">

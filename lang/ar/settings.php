@@ -10,7 +10,7 @@ return [
     'default_currency' => 'العملة الافتراضية',
     'maintenance_subscription' => 'الصيانة والاشتراك',
     'maintenance_mode' => 'تفعيل وضع الصيانة',
-    'trial_days' => 'أيام التجربة لكل مالك',
+    'premium_price_per_property' => 'سعر الاشتراك المميز الشهري لكل عقار (دولار)',
     'seo' => 'SEO',
     'seo_title' => 'عنوان SEO',
     'seo_description' => 'وصف SEO',

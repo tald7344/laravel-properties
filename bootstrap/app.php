@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [\App\Http\Middleware\SetLocale::class, \App\Http\Middleware\CheckMaintenanceMode::class]);
+        $middleware->alias(['owner.subscription' => \App\Http\Middleware\EnsureOwnerSubscription::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
