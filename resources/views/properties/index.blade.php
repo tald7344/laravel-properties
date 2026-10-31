@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @php
+        $favoritePropertyIds = auth()->user()?->favoriteProperties()->pluck('properties.id')->all() ?? [];
         $initial = [
             'data' => $properties->getCollection()->map(fn ($property) => [
                 'id' => $property->id,
@@ -16,6 +17,7 @@
                 'area' => $property->area,
                 'furnished' => $property->furnished,
                 'owner' => $property->owner?->name,
+                'is_favorite' => in_array($property->id, $favoritePropertyIds),
             ])->values(),
             'total' => $properties->total(),
             'current_page' => $properties->currentPage(),
@@ -26,11 +28,14 @@
         <div data-property-search
             data-endpoint="{{ route('properties.search') }}"
             data-listing-url="{{ route('properties.index') }}"
+            data-favorite-url="{{ url('/properties') }}"
+            data-csrf-token="{{ csrf_token() }}"
             data-cities="{{ json_encode($cities, JSON_HEX_APOS | JSON_HEX_QUOT) }}"
             data-filters="{{ json_encode($filters, JSON_HEX_APOS | JSON_HEX_QUOT) }}"
             data-initial="{{ json_encode($initial, JSON_HEX_APOS | JSON_HEX_QUOT) }}"
             data-translations="{{ json_encode(__('property-search'), JSON_HEX_APOS | JSON_HEX_QUOT) }}"
-            data-locale="{{ app()->getLocale() }}">
+            data-locale="{{ app()->getLocale() }}"
+            data-authenticated="{{ auth()->check() ? 'true' : 'false' }}">
         </div>
         <noscript>
             <div class="mx-auto max-w-[1160px] px-[22px]">

@@ -10,9 +10,7 @@ use App\Services\PropertiesService;
 
 class PropertyController extends Controller
 {
-    public function __construct(private readonly PropertiesService $properties)
-    {
-    }
+    public function __construct(private readonly PropertiesService $properties) {}
 
     public function landing()
     {
@@ -26,7 +24,7 @@ class PropertyController extends Controller
 
     public function search(PropertySearchRequest $request)
     {
-        return response()->json($this->properties->search($request->validated()));
+        return response()->json($this->properties->search($request->validated(), $request->user()));
     }
 
     public function show(Property $property)

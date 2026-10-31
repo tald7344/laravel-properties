@@ -14,6 +14,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LegalPageController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyFavoriteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RenterController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PropertyController::class, 'landing'])->name('home');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
+Route::middleware('auth')->group(function () {
+    Route::put('/properties/{property}/favorite', [PropertyFavoriteController::class, 'store'])->name('properties.favorite.store');
+    Route::delete('/properties/{property}/favorite', [PropertyFavoriteController::class, 'destroy'])->name('properties.favorite.destroy');
+});
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 Route::post('/properties/{property}/contact', [PropertyController::class, 'contact'])->name('properties.contact');
 Route::post('/properties/{property}/report', [PropertyController::class, 'report'])->name('properties.report');

@@ -40,9 +40,13 @@ class PropertiesService
         ];
     }
 
-    public function search(array $filters): array
+    public function search(array $filters, ?User $user = null): array
     {
         $properties = $this->filteredProperties($filters)->paginate(8)->withQueryString();
+        $favoriteIds = $user?->favoriteProperties()
+            ->whereIn('properties.id', $properties->getCollection()->modelKeys())
+            ->pluck('properties.id')
+            ->all() ?? [];
 
         return [
             'data' => $properties->getCollection()->map(fn (Property $property) => [
@@ -59,6 +63,7 @@ class PropertiesService
                 'area' => $property->area,
                 'furnished' => $property->furnished,
                 'owner' => $property->owner?->name,
+                'is_favorite' => in_array($property->id, $favoriteIds),
             ])->values(),
             'total' => $properties->total(),
             'current_page' => $properties->currentPage(),

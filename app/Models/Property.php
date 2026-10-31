@@ -8,6 +8,7 @@ class Property extends Model {
     protected $casts = ['media'=>'array','amenities'=>'array','furnished'=>'boolean','reward_available'=>'boolean','last_confirmed_at'=>'datetime','published_at'=>'datetime'];
 
     public function owner() { return $this->belongsTo(User::class, 'user_id'); }
+    public function favoritedBy() { return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); }
     public function inquiries() { return $this->hasMany(Inquiry::class); }
 
     public function mediaUrls(): array

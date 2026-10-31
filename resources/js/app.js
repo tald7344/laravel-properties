@@ -66,11 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
             createApp(PropertySearch, {
                 endpoint: propertySearch.dataset.endpoint,
                 listingUrl: propertySearch.dataset.listingUrl,
+                favoriteUrl: propertySearch.dataset.favoriteUrl,
+                csrfToken: propertySearch.dataset.csrfToken,
                 cities: readJson('cities', []),
                 filters: readJson('filters', {}),
                 initial: readJson('initial', { data: [], total: 0, current_page: 1, last_page: 1 }),
                 translations: readJson('translations', {}),
                 locale: propertySearch.dataset.locale,
+                isAuthenticated: propertySearch.dataset.authenticated === 'true',
             }).mount(propertySearch);
         }).catch((error) => console.error('Could not load property search.', error));
     }

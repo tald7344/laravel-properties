@@ -26,6 +26,21 @@ a {
     text-decoration: none
 }
 
+.property-favorite {
+    transition: color .18s ease, transform .18s ease;
+
+    &:hover {
+        color: #c45c63;
+        transform: scale(1.16);
+    }
+
+    &:focus-visible {
+        border-radius: 3px;
+        outline: 2px solid var(--green);
+        outline-offset: 3px;
+    }
+}
+
 /* Custom geometry for the handcrafted landing-page house illustration. */
 .house-roof {
     position: absolute;
