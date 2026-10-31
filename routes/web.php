@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminSubscriptionsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LegalPageController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ProfileController;
@@ -69,11 +70,18 @@ Route::get('/admin/complaints', [AdminComplaintsController::class, 'index'])->na
 Route::get('/admin/complaints/{report}', [AdminComplaintsController::class, 'show'])->name('admin.complaints.show');
 Route::post('/admin/complaints/{report}/resolve', [AdminComplaintsController::class, 'resolve'])->name('admin.complaints.resolve');
 Route::get('/language/{language}', [LanguageController::class, 'switch'])->name('language.switch');
+Route::get('/legal/{slug}', [LegalPageController::class, 'show'])->name('legal.show');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/properties', [AdminPropertiesController::class, 'index'])->name('properties.index');
     Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings/update', [AdminSettingsController::class, 'update'])->name('settings.update');
+    Route::get('/legal-pages', [LegalPageController::class, 'index'])->name('legal-pages.index');
+    Route::get('/legal-pages/create', [LegalPageController::class, 'create'])->name('legal-pages.create');
+    Route::post('/legal-pages', [LegalPageController::class, 'store'])->name('legal-pages.store');
+    Route::get('/legal-pages/{legalPage}/edit', [LegalPageController::class, 'edit'])->name('legal-pages.edit');
+    Route::put('/legal-pages/{legalPage}', [LegalPageController::class, 'update'])->name('legal-pages.update');
+    Route::delete('/legal-pages/{legalPage}', [LegalPageController::class, 'destroy'])->name('legal-pages.destroy');
     Route::get('/languages', [AdminLanguageController::class, 'index'])->name('languages.index');
     Route::get('/languages/create', [AdminLanguageController::class, 'create'])->name('languages.create');
     Route::post('/languages', [AdminLanguageController::class, 'store'])->name('languages.store');

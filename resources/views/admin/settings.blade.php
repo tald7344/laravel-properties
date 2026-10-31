@@ -55,6 +55,44 @@
                 <label>{{ __('settings.reward_amount') }}<input class="field" type="number" step="0.01"
                         name="default_reward_amount" value="{{ $settings['default_reward_amount'] ?? 0 }}"></label>
             </div>
+            <section class="panel settings-social" aria-labelledby="social-links-title">
+                <div class="settings-social__heading">
+                    <div>
+                        <h2 id="social-links-title">{{ __('legal.social.title') }}</h2>
+                        <p>{{ __('legal.social.description') }}</p>
+                    </div>
+                    <button class="btn alt" type="button" data-add-social>{{ __('legal.social.add') }}</button>
+                </div>
+                <div class="settings-social__rows" data-social-links data-next-index="{{ count($socialLinks) }}">
+                    @foreach ($socialLinks as $index => $socialLink)
+                        <div class="settings-social__row" data-social-row>
+                            <label>
+                                {{ __('legal.social.name') }}
+                                <input class="field" name="social_links[{{ $index }}][name]" value="{{ $socialLink['name'] }}" maxlength="60" required>
+                            </label>
+                            <label>
+                                {{ __('legal.social.url') }}
+                                <input class="field" type="url" name="social_links[{{ $index }}][url]" value="{{ $socialLink['url'] }}" placeholder="https://" required>
+                            </label>
+                            <button class="btn outline" type="button" data-remove-social>{{ __('legal.social.remove') }}</button>
+                        </div>
+                    @endforeach
+                </div>
+                <template data-social-template>
+                    <div class="settings-social__row" data-social-row>
+                        <label>
+                            {{ __('legal.social.name') }}
+                            <input class="field" name="social_links[__INDEX__][name]" maxlength="60" required>
+                        </label>
+                        <label>
+                            {{ __('legal.social.url') }}
+                            <input class="field" type="url" name="social_links[__INDEX__][url]" placeholder="https://" required>
+                        </label>
+                        <button class="btn outline" type="button" data-remove-social>{{ __('legal.social.remove') }}</button>
+                    </div>
+                </template>
+                <p class="settings-social__hint">{{ __('legal.social.hint') }}</p>
+            </section>
         </div>
         <button class="btn" style="margin-top:18px">{{ __('settings.save_all') }}</button>
     </form>

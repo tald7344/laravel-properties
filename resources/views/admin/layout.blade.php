@@ -16,6 +16,7 @@
             <a href="{{ route('admin.roles.index') }}" class="admin-link"><i>◉</i><span>{{ __('admin-layout.roles') }}</span></a>
             <a href="{{ route('admin.permissions.index') }}" class="admin-link"><i>◈</i><span>{{ __('admin-layout.permissions') }}</span></a>
             <a href="{{ route('admin.languages.index') }}" class="admin-link"><i>文</i><span>{{ __('admin-layout.languages') }}</span></a>
+            <a href="{{ route('admin.legal-pages.index') }}" class="admin-link"><i>§</i><span>{{ __('admin-layout.legal_pages') }}</span></a>
             <a href="{{ route('admin.settings.index') }}" class="admin-link"><i>⚙</i><span>{{ __('admin-layout.settings') }}</span></a>
             <div class="admin-sidebar-bottom"><span>{{ auth()->user()->name }}</span><small>{{ __('admin-layout.admin_role') }}</small></div>
         </aside>

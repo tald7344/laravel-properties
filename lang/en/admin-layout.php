@@ -15,6 +15,7 @@ return [
     'roles' => 'Roles',
     'permissions' => 'Permissions',
     'languages' => 'Languages',
+    'legal_pages' => 'Legal pages',
     'settings' => 'Settings',
     'admin_role' => 'Platform administrator',
     'platform_name' => 'Dark Real Estate Platform',

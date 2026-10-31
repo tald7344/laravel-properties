@@ -88,5 +88,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Subscription::updateOrCreate(['sham_cash_reference' => 'DEMO-SHAM-002'], ['user_id' => $owner->id, 'plan' => 'monthly', 'amount' => 10, 'status' => 'pending']);
         \App\Models\Report::updateOrCreate(['property_id' => $shop->id, 'type' => 'old'], ['reporter_id' => $renter->id, 'details' => 'يرجى التأكد من استمرار توفر المحل.', 'status' => 'open']);
         \App\Models\Report::updateOrCreate(['property_id' => $flat->id, 'type' => 'suspicious'], ['reporter_id' => $renter->id, 'details' => 'الوصف يحتاج إلى مراجعة من فريق الإدارة.', 'status' => 'open']);
+        $this->call(LegalPageSeeder::class);
     }
 }

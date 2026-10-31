@@ -1,19 +1,6 @@
 import './bootstrap.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-    const page = document.body.dataset.page;
-    const loadPageStyles = page === 'owner-profile'
-        ? import('../scss/profile-owner.scss')
-        : page === 'renter-profile'
-            ? import('../scss/profile-renter.scss')
-            : page === 'renter-dashboard'
-                ? import('../scss/renter-dashboard.scss')
-                : null;
-    loadPageStyles?.catch((error) => console.error('Could not load page styles.', error));
-
-    if (document.body.dataset.page === 'owner-property-form') {
-        import('../scss/owner-property-form.scss').catch((error) => console.error('Could not load owner property form styles.', error));
-    }
-
     if (document.body.dataset.page === 'admin') {
         import('./admin.js');
         const root = document.documentElement;
@@ -28,6 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
         setSidebar(localStorage.getItem('darak-admin-sidebar') === 'collapsed');
         sidebar?.addEventListener('click', () => setSidebar(!document.body.classList.contains('sidebar-collapsed')));
     }
+
+    const socialRows = document.querySelector('[data-social-links]');
+    const socialTemplate = document.querySelector('template[data-social-template]');
+    document.querySelector('[data-add-social]')?.addEventListener('click', () => {
+        if (!socialRows || !socialTemplate) return;
+        const index = Number(socialRows.dataset.nextIndex || 0);
+        socialRows.dataset.nextIndex = String(index + 1);
+        socialRows.insertAdjacentHTML('beforeend', socialTemplate.innerHTML.replaceAll('__INDEX__', String(index)));
+    });
+    socialRows?.addEventListener('click', (event) => {
+        if (event.target instanceof Element && event.target.closest('[data-remove-social]')) {
+            event.target.closest('[data-social-row]')?.remove();
+        }
+    });
     document.querySelectorAll('[data-confirm]').forEach((form) => form.addEventListener('submit', (event) => {
         if (!window.confirm(form.dataset.confirm)) event.preventDefault();
     }));

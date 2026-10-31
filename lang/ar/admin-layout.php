@@ -15,6 +15,7 @@ return [
     'roles' => 'الأدوار',
     'permissions' => 'الصلاحيات',
     'languages' => 'اللغات',
+    'legal_pages' => 'الصفحات القانونية',
     'settings' => 'الإعدادات',
     'admin_role' => 'مدير المنصة',
     'platform_name' => 'منصة دارك العقارية',
