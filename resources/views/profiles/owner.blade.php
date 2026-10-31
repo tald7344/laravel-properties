@@ -1,66 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="profile-page owner-profile">
-        <div class="wrap profile-page__container">
-            <header class="profile-page__heading">
-                <span class="tag">{{ __('profiles.owner_account') }}</span>
-                <h1>{{ __('profiles.profile') }}</h1>
-                <p>{{ __('profiles.owner_intro') }}</p>
+    <main class="profile-page owner-profile min-h-[calc(100vh-76px)] bg-[#f5f8f6] py-[42px] pb-16">
+        <div class="profile-page__container max-w-[900px] mx-auto px-[22px]">
+            <header class="profile-page__heading mb-[22px]">
+                <span class="inline-block rounded-full bg-[var(--mint)] px-[9px] py-1 text-xs font-bold text-[var(--green)]">{{ __('profiles.owner_account') }}</span>
+                <h1 class="my-[9px] mb-1 text-[clamp(26px,3vw,34px)]">{{ __('profiles.profile') }}</h1>
+                <p class="m-0 text-[var(--muted)]">{{ __('profiles.owner_intro') }}</p>
             </header>
 
-            <form class="profile-form" method="post" action="{{ route('owner.profile.update') }}" enctype="multipart/form-data">
+            <form class="profile-form rounded-2xl border border-[#e2eae5] bg-white p-[26px] shadow-[0_7px_24px_rgba(24,59,44,0.035)] max-[600px]:p-[18px]" method="post" action="{{ route('owner.profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('put')
-                <div class="profile-form__grid">
-                    <label class="profile-form__field">
+                <div class="profile-form__grid grid grid-cols-2 gap-[18px] max-[600px]:grid-cols-1">
+                    <label class="profile-form__field flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.full_name') }}</span>
-                        <input class="field" name="name" value="{{ old('name', auth()->user()->name) }}" autocomplete="name" required>
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" name="name" value="{{ old('name', auth()->user()->name) }}" autocomplete="name" required>
                     </label>
-                    <label class="profile-form__field">
+                    <label class="profile-form__field flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.email') }}</span>
-                        <input class="field" type="email" name="email" value="{{ old('email', auth()->user()->email) }}" autocomplete="email" required>
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" type="email" name="email" value="{{ old('email', auth()->user()->email) }}" autocomplete="email" required>
                     </label>
-                    <label class="profile-form__field">
+                    <label class="profile-form__field flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.phone') }}</span>
-                        <input class="field" name="phone" value="{{ old('phone', auth()->user()->phone) }}" autocomplete="tel" required>
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" name="phone" value="{{ old('phone', auth()->user()->phone) }}" autocomplete="tel" required>
                     </label>
-                    <label class="profile-form__field">
+                    <label class="profile-form__field flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.location') }}</span>
-                        <input class="field" name="location" value="{{ old('location', auth()->user()->location) }}" autocomplete="address-level2" maxlength="255">
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" name="location" value="{{ old('location', auth()->user()->location) }}" autocomplete="address-level2" maxlength="255">
                     </label>
-                    <label class="profile-form__field profile-form__field--full">
+                    <label class="profile-form__field profile-form__field--full col-span-full max-[600px]:col-auto flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.profile_photo') }}</span>
-                        <input class="field" type="file" name="profile_image" accept=".jpg,.jpeg,.png,.webp,image/*">
-                        <small>{{ __('profiles.photo_formats') }}</small>
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" type="file" name="profile_image" accept=".jpg,.jpeg,.png,.webp,image/*">
+                        <small class="text-[11px] leading-[1.7] font-normal text-[var(--muted)]">{{ __('profiles.photo_formats') }}</small>
                     </label>
                     @if (auth()->user()->profile_image)
-                        <div class="profile-form__current profile-form__field--full">
-                            <img src="{{ \Illuminate\Support\Facades\Storage::url(auth()->user()->profile_image) }}" alt="{{ __('profiles.current_profile_photo') }}">
+                        <div class="profile-form__current profile-form__field--full col-span-full max-[600px]:col-auto flex items-center gap-3 text-xs text-[var(--muted)]">
+                            <img class="size-[68px] rounded-full object-cover" src="{{ \Illuminate\Support\Facades\Storage::url(auth()->user()->profile_image) }}" alt="{{ __('profiles.current_profile_photo') }}">
                             <span>{{ __('profiles.current_photo') }}</span>
                         </div>
                     @endif
-                    <label class="profile-form__field profile-form__field--full">
+                    <label class="profile-form__field profile-form__field--full col-span-full max-[600px]:col-auto flex min-w-0 flex-col gap-[7px] text-xs font-bold text-[#43574f]">
                         <span>{{ __('profiles.owner_documents') }}</span>
-                        <input class="field" type="file" name="documents[]" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple>
-                        <small>{{ __('profiles.document_upload_help') }}</small>
+                        <input class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]" type="file" name="documents[]" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple>
+                        <small class="text-[11px] leading-[1.7] font-normal text-[var(--muted)]">{{ __('profiles.document_upload_help') }}</small>
                     </label>
                     @if (auth()->user()->profile_documents)
-                        <fieldset class="profile-form__documents profile-form__field--full">
-                            <legend>{{ __('profiles.saved_documents') }}</legend>
+                        <fieldset class="profile-form__documents profile-form__field--full col-span-full max-[600px]:col-auto m-0 grid gap-[9px] rounded-[10px] border border-[#e2eae5] p-[14px]">
+                            <legend class="px-[6px] text-xs font-bold text-[#43574f]">{{ __('profiles.saved_documents') }}</legend>
                             @foreach (auth()->user()->profile_documents as $document)
-                                <label>
+                                <label class="flex items-center gap-2 text-xs text-[var(--muted)]">
                                     <input type="checkbox" name="remove_documents[]" value="{{ $document }}">
-                                    <a href="{{ route('owner.profile.documents.download', ['document' => $document]) }}">{{ basename($document) }}</a>
+                                    <a class="wrap-anywhere text-[var(--green)]" href="{{ route('owner.profile.documents.download', ['document' => $document]) }}">{{ basename($document) }}</a>
                                     <span>{{ __('profiles.delete') }}</span>
                                 </label>
                             @endforeach
                         </fieldset>
                     @endif
                 </div>
-                <div class="profile-form__actions">
-                    <a class="btn outline" href="{{ route('owner.dashboard') }}">{{ __('profiles.return_owner_dashboard') }}</a>
-                    <button class="btn" type="submit">{{ __('profiles.save_changes') }}</button>
+                <div class="profile-form__actions mt-6 flex justify-between gap-3 max-[600px]:flex-col-reverse">
+                    <a class="inline-block cursor-pointer rounded-[10px] px-[14px] py-[9px] font-[inherit] text-[13px] font-bold border border-[#cadbd2] bg-transparent text-[var(--green)]" href="{{ route('owner.dashboard') }}">{{ __('profiles.return_owner_dashboard') }}</a>
+                    <button class="max-[600px]:text-center inline-block cursor-pointer rounded-[10px] border-0 bg-[var(--green)] px-[14px] py-[9px] font-[inherit] text-[13px] font-bold text-white" type="submit">{{ __('profiles.save_changes') }}</button>
                 </div>
             </form>
         </div>

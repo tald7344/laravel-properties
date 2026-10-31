@@ -71,11 +71,11 @@
 <body data-page="{{ $pageName }}" data-admin-page="{{ $adminPageName }}">
 @include('layouts.navbar')
 @if (session('success'))
-    <div class="wrap">
+    <div class="mx-auto max-w-[1160px] px-[22px]">
         <div class="flash">{{ session('success') }}</div>
     </div>
     @endif @if ($errors->any())
-        <div class="wrap">
+        <div class="mx-auto max-w-[1160px] px-[22px]">
             <div class="error">{{ $errors->first() }}</div>
         </div>
     @endif

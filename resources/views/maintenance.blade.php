@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    <main class="section">
-        <div class="wrap">
-            <div class="panel" style="max-width:600px;margin:12vh auto;text-align:center">
+    <main class="py-8">
+        <div class="mx-auto max-w-[1160px] px-[22px]">
+            <div class="rounded-[17px] border border-[#e5ece8] bg-white p-[18px]" style="max-width:600px;margin:12vh auto;text-align:center">
                 <h1>{{ __('maintenance.headline') }}</h1>
-                <p class="muted">{{ __('maintenance.message') }}</p>
+                <p class="text-[var(--muted)]">{{ __('maintenance.message') }}</p>
             </div>
         </div>
     </main>

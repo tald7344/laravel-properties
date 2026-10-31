@@ -1,7 +1,7 @@
 @extends('layouts.app') 
-@section('content')<section class="section">
-        <div class="wrap admin-layout">
-            <aside class="panel admin-sidebar">
+@section('content')<section class="px-5 py-8">
+        <div class="mx-auto flex max-w-[1160px] gap-5 px-[22px] py-8">
+            <aside class="flex w-[238px] shrink-0 flex-col gap-3 rounded-xl bg-[#102b27] p-5 text-white">
                 <h3>{{ __('admin-section.management') }}</h3><a href="{{ route('admin.dashboard') }}">▦ {{ __('admin-section.analytics') }}</a><a
                     href="{{ route('admin.section', 'properties') }}">⌂ {{ __('admin-section.properties') }}</a><a
                     href="{{ route('admin.section', 'users') }}">♙ {{ __('admin-section.users') }}</a><a
@@ -9,13 +9,13 @@
                     href="{{ route('admin.section', 'complaints') }}">⚑ {{ __('admin-section.complaints') }}</a><a
                     href="{{ route('admin.section', 'settings') }}">⚙ {{ __('admin-section.settings') }}</a>
             </aside>
-            <main class="admin-main">
+            <main class="min-w-0 flex-1">
                 <h1>
                     {{ __("admin-section.{$section}") }}
                 </h1>
                 @if ($section === 'properties')
-                    <div class="panel">
-                        <table class="table">
+                    <div class="rounded-xl border border-[#e4eeea] bg-white p-5 shadow-sm">
+                        <table class="w-full border-collapse text-right text-sm [&_th]:border-b [&_th]:border-[#e4eeea] [&_th]:px-3 [&_th]:py-3 [&_th]:text-xs [&_th]:font-bold [&_td]:border-b [&_td]:border-[#edf3f0] [&_td]:px-3 [&_td]:py-3">
                             <tr>
                                 <th>{{ __('admin-section.property') }}</th>
                                 <th>{{ __('admin-section.owner') }}</th>
@@ -32,12 +32,12 @@
                                     <td>
                                         <form method="post" action="{{ route('admin.moderate', $p) }}">
                                             @csrf
-                                            <select name="status">
+                                            <select name="status" class="w-full rounded-[10px] border border-[#dbe7e1] bg-white p-[10px] font-[inherit] text-[13px]">
                                                 <option value="published">{{ __('admin-section.publish') }}</option>
                                                 <option value="suspended">{{ __('admin-section.suspend') }}</option>
                                                 <option value="expired">{{ __('admin-section.expire') }}</option>
                                             </select>
-                                            <button class="btn">{{ __('admin-section.save') }}</button>
+                                            <button class="inline-block cursor-pointer rounded-xl bg-[#176b52] px-[18px] py-[11px] font-bold text-white">{{ __('admin-section.save') }}</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -45,8 +45,8 @@
                         </table>
                     </div>
                 @elseif($section === 'users')
-                    <div class="panel">
-                        <table class="table">
+                    <div class="rounded-xl border border-[#e4eeea] bg-white p-5 shadow-sm">
+                        <table class="w-full border-collapse text-right text-sm [&_th]:border-b [&_th]:border-[#e4eeea] [&_th]:px-3 [&_th]:py-3 [&_th]:text-xs [&_th]:font-bold [&_td]:border-b [&_td]:border-[#edf3f0] [&_td]:px-3 [&_td]:py-3">
                             <tr>
                                 <th>{{ __('admin-section.name') }}</th>
                                 <th>{{ __('admin-section.phone') }}</th>
@@ -64,8 +64,8 @@
                         </table>
                     </div>
                 @elseif($section === 'subscriptions')
-                    <div class="panel">
-                        <table class="table">
+                    <div class="rounded-xl border border-[#e4eeea] bg-white p-5 shadow-sm">
+                        <table class="w-full border-collapse text-right text-sm [&_th]:border-b [&_th]:border-[#e4eeea] [&_th]:px-3 [&_th]:py-3 [&_th]:text-xs [&_th]:font-bold [&_td]:border-b [&_td]:border-[#edf3f0] [&_td]:px-3 [&_td]:py-3">
                             <tr>
                                 <th>{{ __('admin-section.owner') }}</th>
                                 <th>{{ __('admin-section.amount') }}</th>
@@ -85,8 +85,8 @@
                         </table>
                     </div>
                 @elseif($section === 'complaints')
-                    <div class="panel">
-                        <table class="table">
+                    <div class="rounded-xl border border-[#e4eeea] bg-white p-5 shadow-sm">
+                        <table class="w-full border-collapse text-right text-sm [&_th]:border-b [&_th]:border-[#e4eeea] [&_th]:px-3 [&_th]:py-3 [&_th]:text-xs [&_th]:font-bold [&_td]:border-b [&_td]:border-[#edf3f0] [&_td]:px-3 [&_td]:py-3">
                             <tr>
                                 <th>{{ __('admin-section.property') }}</th>
                                 <th>{{ __('admin-section.type') }}</th>
@@ -110,7 +110,7 @@
                                         @if ($r->status === 'open')
                                             <form method="post" action="{{ route('admin.reports.resolve', $r) }}">
                                                 @csrf
-                                                <button class="btn alt">{{ __('admin-section.close') }}</button>
+                                                <button class="inline-block rounded-xl bg-[#dff5e9] px-[18px] py-[11px] font-bold text-[#176b52]">{{ __('admin-section.close') }}</button>
                                             </form>
                                         @endif
                                     </td>
@@ -119,14 +119,14 @@
                         </table>
                     </div>
                 @else
-                    <div class="panel">
+                    <div class="rounded-xl border border-[#e4eeea] bg-white p-5 shadow-sm">
                         <form method="post" action="{{ route('admin.settings.save') }}">
                             @csrf
                             @foreach ($settings as $setting)
-                                <label style="display:block;margin-bottom:14px">{{ $setting->key }}<input class="field"
+                                <label class="mb-[14px] block">{{ $setting->key }}<input class="w-full rounded-lg border border-[#cadbd2] px-3 py-2 text-sm"
                                         name="settings[{{ $setting->key }}]" value="{{ $setting->value }}"></label>
                             @endforeach
-                            <button class="btn">{{ __('admin-section.save_settings') }}</button>
+                            <button class="inline-block cursor-pointer rounded-xl bg-[#176b52] px-[18px] py-[11px] font-bold text-white">{{ __('admin-section.save_settings') }}</button>
                         </form>
                     </div>
                 @endif

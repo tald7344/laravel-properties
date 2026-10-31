@@ -122,77 +122,77 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="wrap">
-        <div class="properties-heading">
-            <div><span class="tag">{{ text('brand') }}</span>
-                <h1>{{ text('title') }}</h1>
-                <p class="muted">{{ text('total', { count: formatPrice(total) }) }}</p>
-            </div><a class="btn" href="/auth">{{ text('list_free') }}</a>
+    <div class="mx-auto min-h-[60vh] w-full max-w-[1160px] px-[22px]">
+        <div class="mb-[26px] flex items-end justify-between max-[800px]:block">
+            <div><span class="inline-block rounded-full bg-[var(--mint)] px-[9px] py-1 text-xs font-bold text-[var(--green)]">{{ text('brand') }}</span>
+                <h1 class="mb-1 mt-[8px] text-[34px]">{{ text('title') }}</h1>
+                <p class="m-0 text-[var(--muted)]">{{ text('total', { count: formatPrice(total) }) }}</p>
+            </div><a class="max-[800px]:mt-4 inline-block cursor-pointer rounded-[10px] border-0 bg-[var(--green)] px-[14px] py-[9px] font-[inherit] text-[13px] font-bold text-white" href="/auth">{{ text('list_free') }}</a>
         </div>
 
-        <form class="property-searchbar" @submit.prevent="applyFilters">
-            <div class="search-main"><span aria-hidden="true">⌕</span><input v-model="form.neighborhood" name="neighborhood"
+        <form class="mb-7 grid grid-cols-[minmax(260px,1.6fr)_170px_170px_auto] gap-[10px] rounded-[14px] border border-[#e0ebe5] bg-white p-3 shadow-[0_8px_24px_rgba(23,78,56,0.07)] max-[900px]:grid-cols-2 max-[560px]:grid-cols-1" @submit.prevent="applyFilters">
+            <div class="flex items-center gap-2 rounded-[10px] border border-[#dbe7e1] px-3 text-[var(--green)] max-[900px]:col-span-full max-[560px]:col-auto"><span aria-hidden="true">⌕</span><input class="w-full border-0 p-3 font-[inherit] outline-0" v-model="form.neighborhood" name="neighborhood"
                 :placeholder="text('search_placeholder')" @input="searchNeighborhood"></div>
-            <select v-model="form.purpose" name="purpose" :aria-label="text('transaction_type')" @change="applyFilters">
+            <select class="w-full rounded-[10px] border border-[#dbe7e1] bg-white px-3 py-2 font-[inherit]" v-model="form.purpose" name="purpose" :aria-label="text('transaction_type')" @change="applyFilters">
                 <option value="">{{ text('all_transactions') }}</option><option value="rent">{{ text('rent') }}</option><option value="sale">{{ text('sale') }}</option>
             </select>
-            <select v-model="form.city" name="city" :aria-label="text('city')" @change="applyFilters">
+            <select class="w-full rounded-[10px] border border-[#dbe7e1] bg-white px-3 py-2 font-[inherit]" v-model="form.city" name="city" :aria-label="text('city')" @change="applyFilters">
                 <option value="">{{ text('all_cities') }}</option><option v-for="city in cities" :key="city" :value="city">{{ text(`city_${city.toLowerCase()}`) }}</option>
             </select>
-            <button class="btn" type="submit">{{ text('search') }}</button>
+            <button class="whitespace-nowrap inline-block cursor-pointer rounded-[10px] border-0 bg-[var(--green)] px-[14px] py-[9px] font-[inherit] text-[13px] font-bold text-white" type="submit">{{ text('search') }}</button>
         </form>
 
-        <div class="properties-layout">
-            <aside class="property-filters">
-                <div class="filter-heading"><h2>{{ text('filters') }}</h2><button class="filter-reset" type="button" @click="clearFilters">{{ text('clear') }}</button></div>
-                <div class="filter-group"><label for="filter-category">{{ text('property_type') }}</label><select id="filter-category" v-model="form.category" @change="applyFilters">
+        <div class="grid grid-cols-[280px_minmax(0,1fr)] items-start gap-[26px] max-[900px]:grid-cols-1">
+            <aside class="sticky top-5 rounded-[15px] border border-[#e0ebe5] bg-white p-5 max-[900px]:static">
+                <div class="mb-1 flex items-center justify-between border-b border-[#edf2ef] pb-4"><h2 class="m-0 text-[17px]">{{ text('filters') }}</h2><button class="cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-[11px] text-[var(--green)]" type="button" @click="clearFilters">{{ text('clear') }}</button></div>
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold" for="filter-category">{{ text('property_type') }}</label><select class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" id="filter-category" v-model="form.category" @change="applyFilters">
                     <option value="">{{ text('all') }}</option><option value="residential">{{ text('residential') }}</option><option value="commercial">{{ text('commercial') }}</option>
                 </select></div>
-                <div class="filter-group"><label>{{ text('price_range') }}</label><div class="filter-row">
-                    <input v-model="form.min_price" type="number" min="0" :placeholder="text('from')" :aria-label="text('minimum_price')" @change="applyFilters">
-                    <input v-model="form.max_price" type="number" min="0" :placeholder="text('to')" :aria-label="text('maximum_price')" @change="applyFilters">
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold">{{ text('price_range') }}</label><div class="grid grid-cols-2 gap-2">
+                    <input class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" v-model="form.min_price" type="number" min="0" :placeholder="text('from')" :aria-label="text('minimum_price')" @change="applyFilters">
+                    <input class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" v-model="form.max_price" type="number" min="0" :placeholder="text('to')" :aria-label="text('maximum_price')" @change="applyFilters">
                 </div></div>
-                <div class="filter-group"><label>{{ text('area_range') }}</label><div class="filter-row">
-                    <input v-model="form.min_area" type="number" min="0" :placeholder="text('from')" :aria-label="text('minimum_area')" @change="applyFilters">
-                    <input v-model="form.max_area" type="number" min="0" :placeholder="text('to')" :aria-label="text('maximum_area')" @change="applyFilters">
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold">{{ text('area_range') }}</label><div class="grid grid-cols-2 gap-2">
+                    <input class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" v-model="form.min_area" type="number" min="0" :placeholder="text('from')" :aria-label="text('minimum_area')" @change="applyFilters">
+                    <input class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" v-model="form.max_area" type="number" min="0" :placeholder="text('to')" :aria-label="text('maximum_area')" @change="applyFilters">
                 </div></div>
-                <div class="filter-group"><label for="filter-bedrooms">{{ text('bedrooms') }}</label><select id="filter-bedrooms" v-model="form.bedrooms" @change="applyFilters">
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold" for="filter-bedrooms">{{ text('bedrooms') }}</label><select class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" id="filter-bedrooms" v-model="form.bedrooms" @change="applyFilters">
                     <option value="">{{ text('any_number') }}</option><option v-for="n in [1,2,3,4,5]" :key="n" :value="n">{{ text('bedroom_count', { count: `${n}${n === 5 ? '+' : ''}` }) }}</option>
                 </select></div>
-                <div class="filter-group"><label for="filter-bathrooms">{{ text('bathrooms') }}</label><select id="filter-bathrooms" v-model="form.bathrooms" @change="applyFilters">
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold" for="filter-bathrooms">{{ text('bathrooms') }}</label><select class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" id="filter-bathrooms" v-model="form.bathrooms" @change="applyFilters">
                     <option value="">{{ text('any_number') }}</option><option v-for="n in [1,2,3,4]" :key="n" :value="n">{{ n }}{{ n === 4 ? '+' : '' }}</option>
                 </select></div>
-                <div class="filter-group"><label for="filter-floor">{{ text('floor') }}</label><input id="filter-floor" v-model="form.floor" type="number" :placeholder="text('any_floor')" @change="applyFilters"></div>
-                <div class="filter-group"><label>{{ text('condition') }}</label>
-                    <label class="check"><input v-model="form.furnished" type="checkbox" @change="applyFilters"> {{ text('furnished') }}</label>
-                    <label class="check"><input v-model="form.reward" type="checkbox" @change="applyFilters"> {{ text('reward') }}</label>
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold" for="filter-floor">{{ text('floor') }}</label><input class="w-full rounded-lg border border-[#dbe7e1] bg-white p-[10px] text-xs font-[inherit]" id="filter-floor" v-model="form.floor" type="number" :placeholder="text('any_floor')" @change="applyFilters"></div>
+                <div class="border-b border-[#edf2ef] py-4"><label class="mb-[9px] block text-xs font-bold">{{ text('condition') }}</label>
+                    <label class="my-[11px] block text-xs font-normal"><input class="ml-[7px] accent-[var(--green)]" v-model="form.furnished" type="checkbox" @change="applyFilters"> {{ text('furnished') }}</label>
+                    <label class="my-[11px] block text-xs font-normal"><input class="ml-[7px] accent-[var(--green)]" v-model="form.reward" type="checkbox" @change="applyFilters"> {{ text('reward') }}</label>
                 </div>
-                <button class="btn filter-submit" type="button" @click="applyFilters">{{ text('apply_filters') }}</button>
+                <button class="mt-[17px] w-full inline-block cursor-pointer rounded-[10px] border-0 bg-[var(--green)] px-[14px] py-[9px] font-[inherit] text-[13px] font-bold text-white" type="button" @click="applyFilters">{{ text('apply_filters') }}</button>
             </aside>
 
             <main class="property-results" :aria-busy="loading">
-                <div class="results-toolbar"><strong>{{ text('results', { count: formatPrice(total) }) }}</strong><label class="sort-control" for="property-sort">{{ text('sort_by') }}</label>
-                    <select id="property-sort" v-model="form.sort" @change="applyFilters">
+                <div class="mb-[14px] flex items-center gap-3 text-[13px] text-[var(--muted)] max-[560px]:flex-wrap"><strong class="me-auto text-[var(--ink)]">{{ text('results', { count: formatPrice(total) }) }}</strong><label class="text-[11px]" for="property-sort">{{ text('sort_by') }}</label>
+                    <select class="w-[150px] rounded-lg border border-[#dbe7e1] bg-white p-[9px] text-xs" id="property-sort" v-model="form.sort" @change="applyFilters">
                         <option value="latest">{{ text('latest') }}</option><option value="price_low">{{ text('price_low') }}</option><option value="price_high">{{ text('price_high') }}</option>
                     </select>
                 </div>
-                <p v-if="error" class="search-error" role="alert">{{ error }} <button type="button" @click="applyFilters">{{ text('retry') }}</button></p>
-                <div class="property-list" :class="{ 'is-loading': loading }" aria-live="polite">
-                    <a v-for="property in results" :key="property.id" class="property-result-card" :href="property.url">
-                        <div class="property-thumb"><img v-if="property.image" :src="property.image" :alt="property.title" loading="lazy" decoding="async"><span v-else>{{ text('property_image') }}</span>
-                            <span class="property-badge">{{ property.purpose === 'rent' ? text('rent') : text('sale') }}</span>
+                <p v-if="error" class="rounded-[9px] bg-[#fff1f0] p-3 text-[#9b2c25]" role="alert">{{ error }} <button class="cursor-pointer border-0 bg-transparent font-[inherit] text-inherit underline" type="button" @click="applyFilters">{{ text('retry') }}</button></p>
+                <div class="flex flex-col gap-[14px] transition-opacity duration-200" :class="{ 'pointer-events-none opacity-50': loading }" aria-live="polite">
+                    <a v-for="property in results" :key="property.id" dir="ltr" class="grid min-h-[190px] grid-cols-[250px_minmax(0,1fr)] overflow-hidden rounded-[14px] border border-[#e0ebe5] bg-white transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(23,78,56,0.08)] max-[900px]:grid-cols-[190px_1fr] max-[560px]:grid-cols-1" :href="property.url">
+                        <div class="relative grid min-h-[190px] place-items-center overflow-hidden bg-[linear-gradient(135deg,#c5e4d5,#edf7f1)] text-[#54816e] max-[560px]:min-h-[165px]"><img class="h-full w-full object-cover" v-if="property.image" :src="property.image" :alt="property.title" loading="lazy" decoding="async"><span v-else>{{ text('property_image') }}</span>
+                            <span class="absolute right-3 top-3 rounded-[7px] bg-white px-[9px] py-[5px] text-[11px] font-bold text-[var(--green)]">{{ property.purpose === 'rent' ? text('rent') : text('sale') }}</span>
                         </div>
-                        <div class="property-result-body"><div class="result-top"><span class="muted">{{ text(`city_${property.city.toLowerCase()}`) }} · {{ property.neighborhood }}</span><span class="save">♡</span></div>
-                            <h2>{{ property.title }}</h2><div class="result-meta"><span>⌂ {{ property.bedrooms ?? '—' }} {{ text('bedroom_unit') }}</span><span>▣ {{ property.area ?? '—' }} {{ text('area_unit') }}</span><span>♧ {{ property.furnished ? text('furnished') : text('unfurnished') }}</span></div>
-                            <div class="result-bottom"><strong>{{ formatPrice(property.price) }} {{ property.currency }}</strong><small>{{ text('owner_prefix') }} {{ property.owner || text('owner') }}</small></div>
+                        <div dir="rtl" class="flex flex-col p-[18px_20px] text-right"><div class="flex justify-between text-[11px]"><span class="text-[var(--muted)]">{{ text(`city_${property.city.toLowerCase()}`) }} · {{ property.neighborhood }}</span><span class="text-[22px] leading-none text-[#8fa89d]">♡</span></div>
+                            <h2 class="my-[13px] mb-3 text-lg">{{ property.title }}</h2><div class="flex flex-wrap gap-4 text-[11px] text-[var(--muted)] max-[560px]:gap-2"><span>⌂ {{ property.bedrooms ?? '—' }} {{ text('bedroom_unit') }}</span><span>▣ {{ property.area ?? '—' }} {{ text('area_unit') }}</span><span>♧ {{ property.furnished ? text('furnished') : text('unfurnished') }}</span></div>
+                            <div class="mt-auto flex items-end justify-between pt-[18px]"><strong class="text-[19px] text-[var(--green)]">{{ formatPrice(property.price) }} {{ property.currency }}</strong><small class="text-[11px] text-[var(--muted)]">{{ text('owner_prefix') }} {{ property.owner || text('owner') }}</small></div>
                         </div>
                     </a>
                 </div>
-                <div v-if="!loading && !results.length" class="panel empty-properties"><h3>{{ text('no_results') }}</h3><p class="muted">{{ text('empty_hint') }}</p></div>
-                <nav v-if="lastPage > 1" class="property-pagination" :aria-label="text('results_pages')">
-                    <button type="button" :disabled="page <= 1 || loading" @click="goToPage(page - 1)">{{ text('previous') }}</button>
+                <div v-if="!loading && !results.length" class="rounded-[17px] border border-[#e5ece8] bg-white p-[45px] text-center"><h3>{{ text('no_results') }}</h3><p class="text-[var(--muted)]">{{ text('empty_hint') }}</p></div>
+                <nav v-if="lastPage > 1" class="mt-6 flex items-center justify-center gap-[14px]" :aria-label="text('results_pages')">
+                    <button class="cursor-pointer rounded-lg border border-[#dbe7e1] bg-white px-4 py-2 text-[var(--green)] disabled:cursor-not-allowed disabled:opacity-45" type="button" :disabled="page <= 1 || loading" @click="goToPage(page - 1)">{{ text('previous') }}</button>
                     <span>{{ text('page_of', { page, last: lastPage }) }}</span>
-                    <button type="button" :disabled="page >= lastPage || loading" @click="goToPage(page + 1)">{{ text('next') }}</button>
+                    <button class="cursor-pointer rounded-lg border border-[#dbe7e1] bg-white px-4 py-2 text-[var(--green)] disabled:cursor-not-allowed disabled:opacity-45" type="button" :disabled="page >= lastPage || loading" @click="goToPage(page + 1)">{{ text('next') }}</button>
                 </nav>
             </main>
         </div>

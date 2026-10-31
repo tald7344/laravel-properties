@@ -22,7 +22,7 @@
             'last_page' => $properties->lastPage(),
         ];
     @endphp
-    <section class="properties-page">
+    <section class="min-h-[calc(100vh-76px)] bg-[#f5f8f6] pb-[70px] pt-[42px]">
         <div data-property-search
             data-endpoint="{{ route('properties.search') }}"
             data-listing-url="{{ route('properties.index') }}"
@@ -33,7 +33,7 @@
             data-locale="{{ app()->getLocale() }}">
         </div>
         <noscript>
-            <div class="wrap">
+            <div class="mx-auto max-w-[1160px] px-[22px]">
                 <h1>{{ __('properties.title') }}</h1>
                 <p>{{ __('properties.enable_javascript') }}</p>
                 @forelse ($properties as $property)
